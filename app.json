@@ -41,7 +41,8 @@
       "generator": "secret"
     },
     "REDIS_URL": {
-      "description": "The URL for the Heroku Redis install that sidekiq uses"
+      "description": "The URL for the Heroku Redis install that sidekiq uses",
+      "required": false
     },
     "SLACK_APP_URL": {
       "description": "The direct link to your app in the Slack App Store"
@@ -64,6 +65,5 @@
     "postdeploy": "bundle exec rake db:migrate"
   },
   "buildpacks": [
-    "heroku/ruby"
   ]
 }
