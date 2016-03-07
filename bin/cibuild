@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -x
+git log -n 1 HEAD | cat
+ruby -v
+node -v
+bundle -v
+set +x
+set -e
+
+export RACK_ENV=test
+export RAILS_ENV=test
+
+bundle exec rake db:migrate
+bundle exec rake assets:precompile >/dev/null 2>&1
+bundle exec rspec spec
+bundle exec rubocop
+bundle exec brakeman

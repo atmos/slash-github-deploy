@@ -1,0 +1,20 @@
+services:
+  - postgresql
+  - redis-server
+language: ruby
+cache: bundler
+rvm:
+- 2.3.0
+bundler_args: "--without=development"
+env:
+  global:
+    - FERNET_SECRET=xBPxUfoJRRXOfA9Zol1v6qNmXMjj/vJHG5OUpceXnwQ=
+    - DATABASE_URL=postgres://localhost/slash_github_deploy_test
+before_script:
+- psql -c 'create database slash_github_deploy_test;' -U postgres
+- bin/setup
+script: bundle exec bin/cibuild
+notifications:
+  email: false
+addons:
+  postgresql: 9.4

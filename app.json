@@ -1,0 +1,69 @@
+{
+  "name": "SlashGithubDeploy",
+  "logo": "https://cloud.githubusercontent.com/assets/704696/3822434/60e8b060-1d25-11e4-9baf-7fdb7f467e2b.gif",
+  "description": "Run the hubot-deploy-like stuff in Slack.",
+
+  "keywords": [
+    "heroku",
+    "slack",
+    "slash command",
+    "chatops",
+    "github",
+    "deployment"
+  ],
+
+  "website": "http://github.com/atmos/slash-github-deploy",
+  "repository": "https://github.com/atmos/slash-github-deploy",
+  "success_url": "/docs",
+  "addons": ["heroku-postgresql", "heroku-redis"],
+  "env": {
+    "FERNET_SECRET": {
+      "description": "The secret used for writing encrypted values to the database. Generate with 'dd if=/dev/urandom bs=32 count=1 2>/dev/null | openssl base64'."
+    },
+    "GITHUB_OAUTH_ID": {
+      "description": "The GitHub OAuth client id for being an OAuth consumer"
+    },
+    "GITHUB_OAUTH_SECRET": {
+      "description": "The GitHub OAuth client secret for being an OAuth consumer"
+    },
+    "HEROKU_OAUTH_ID": {
+      "description": "The Heroku OAuth client id for being an OAuth consumer"
+    },
+    "HEROKU_OAUTH_SECRET": {
+      "description": "The Heroku OAuth client secret for being an OAuth consumer"
+    },
+    "RAILS_ENV": {
+      "description": "This is what the RAILS_ENV unix environmental variable is set to.",
+      "value": "production"
+    },
+    "RAILS_SECRET_KEY_BASE": {
+      "description": "Unique token for signing cookies. This is generated.",
+      "generator": "secret"
+    },
+    "REDIS_URL": {
+      "description": "The URL for the Heroku Redis install that sidekiq uses"
+    },
+    "SLACK_APP_URL": {
+      "description": "The direct link to your app in the Slack App Store"
+    },
+    "SLACK_OAUTH_ID": {
+      "description": "The Slack OAuth client id for being an OAuth consumer"
+    },
+    "SLACK_OAUTH_SECRET": {
+      "description": "The Slack OAuth client secret for being an OAuth consumer"
+    },
+    "SLACK_SLASH_COMMAND_TOKEN": {
+      "description": "The token from slack to ensure it's a valid incoming request"
+    }
+  },
+  "formation": [
+    { "process": "web",    "quantity": 1 },
+    { "process": "worker", "quantity": 1 }
+  ],
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate"
+  },
+  "buildpacks": [
+    "heroku/ruby"
+  ]
+}

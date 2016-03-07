@@ -1,0 +1,11 @@
+#!/bin/sh
+
+bundle install --local --path vendor/gems
+
+if [ ! -f .node-version ]; then
+  echo "0.12.0" > .node-version
+fi
+
+if [ ! -f .env ]; then
+  cp .env.sample .env
+fi
