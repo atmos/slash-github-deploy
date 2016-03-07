@@ -3,7 +3,6 @@
 set -x
 git log -n 1 HEAD | cat
 ruby -v
-node -v
 bundle -v
 set +x
 set -e
